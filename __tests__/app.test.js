@@ -12,13 +12,13 @@ describe('Duck-BE routes', () => {
 
   const problem = {
     name: 'Function is broken',
-    description: 'It does not work',
+    description: 'It does not render',
     code: '<Hello World!>'
   };
 
   test('create a problem', async () => {
     const res = await request(app)
-      .post('.api/v1/problems')
+      .post('/api/v1/problems')
       .send(problem);
 
     expect(res.body).toEqual({ ...problem, id: '1' });
@@ -28,9 +28,9 @@ describe('Duck-BE routes', () => {
     const newProblem = await Problem.create(problem);
     
     const res = await request(app)
-      .get('/api/v1/problems/description=render');
+      .get('/api/v1/problems/description?description=render');
     
-    expect(res.body).toEqual(newProblem);
+    expect(res.body).toEqual([newProblem]);
   });
 
   afterAll(() => {
