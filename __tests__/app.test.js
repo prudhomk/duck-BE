@@ -1,8 +1,8 @@
-const pool = require('../lib/utils/pool.js');
-const setup = require('../data/setup.js');
-const request = require('supertest');
-const app = require('../lib/app.js');
-const Problem = require('../lib/models/Problem.js');
+import pool from '../lib/utils/pool.js';
+import setup from '../data/setup.js';
+import request from 'supertest';
+import app from '../lib/app.js';
+import Problem from '../lib/models/Problem.js';
 
 
 describe('Duck-BE routes', () => {
@@ -22,6 +22,15 @@ describe('Duck-BE routes', () => {
       .send(problem);
 
     expect(res.body).toEqual({ ...problem, id: '1' });
+  });
+
+  test('retrieves problem by description', async () => {
+    const newProblem = await Problem.create(problem);
+    
+    const res = await request(app)
+      .get('/api/v1/problems/description=render');
+    
+    expect(res.body).toEqual(newProblem);
   });
 
   afterAll(() => {
