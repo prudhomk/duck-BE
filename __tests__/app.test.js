@@ -11,7 +11,6 @@ describe('Duck-BE routes', () => {
   });
 
   const problem = {
-    name: 'Function is broken',
     description: 'It does not render',
     code: '<Hello World!>'
   };
