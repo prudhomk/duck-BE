@@ -5,7 +5,6 @@ import app from '../lib/app.js';
 import Problem from '../lib/models/Problem.js';
 import Solution from '../lib/models/Solution.js';
 
-
 describe('Duck-BE routes', () => {
   beforeEach(() => {
     return setup(pool);
@@ -21,23 +20,6 @@ describe('Duck-BE routes', () => {
     code: '<h1>Hello World!</h1>',
     problem: '1'
   };
-
-  test('create a problem', async () => {
-    const res = await request(app)
-      .post('/api/v1/problems')
-      .send(problem);
-
-    expect(res.body).toEqual({ ...problem, id: '1' });
-  });
-
-  test('retrieves problem by description', async () => {
-    const newProblem = await Problem.create(problem);
-    
-    const res = await request(app)
-      .get('/api/v1/problems/description?description=render');
-    
-    expect(res.body).toEqual([newProblem]);
-  });
 
   test('creates a solution', async () => {
     const newProblem = await Problem.create(problem);
