@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS problems, solutions CASCADE;
+
+CREATE TABLE problems (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  description TEXT NOT NULL,
+  code TEXT NOT NULL
+);
+
+CREATE TABLE solutions (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  description TEXT NOT NULL,
+  code TEXT NOT NULL,
+  problem BIGINT REFERENCES problems(id)
+);
