@@ -41,6 +41,16 @@ describe('Duck-BE routes', () => {
     expect(res.body).toEqual([newSolution]);
   });
 
+  test('finds a solution by id', async () => {
+    await Problem.create(problem);
+    const newSolution = await Solution.create(solution);
+
+    const res = await request(app)
+      .get(`/api/v1/solutions/${newSolution.id}`);
+
+    expect(res.body).toEqual({ ...solution, id: '1' });
+  });
+
   afterAll(() => {
     pool.end();
   });
